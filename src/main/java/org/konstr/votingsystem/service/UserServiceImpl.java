@@ -2,6 +2,8 @@ package org.konstr.votingsystem.service;
 
 import org.konstr.votingsystem.model.User;
 import org.konstr.votingsystem.repository.UserRepository;
+import org.konstr.votingsystem.to.UserTo;
+import org.konstr.votingsystem.util.UserUtil;
 import org.konstr.votingsystem.util.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -44,6 +46,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserTo getTo(int id) throws NotFoundException {
+        return UserUtil.asTo(get(id));
+    }
+
+    @Override
     public User getByEmail(String email) throws NotFoundException {
         Assert.notNull(email, "email must not be null");
         return checkNotFound(repository.findByEmail(email), "email=" + email);
@@ -52,6 +59,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
+        repository.save(prepareToSave(user));
+    }
+
+    @Transactional
+    @Override
+    public void update(UserTo userTo) {
+        Assert.notNull(userTo, "user must not be null");
+        User user = UserUtil.updateFromTo(get(userTo.getId()), userTo);
         repository.save(prepareToSave(user));
     }
 

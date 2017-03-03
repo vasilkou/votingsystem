@@ -3,6 +3,7 @@ package org.konstr.votingsystem;
 import org.konstr.votingsystem.matcher.ModelMatcher;
 import org.konstr.votingsystem.model.Role;
 import org.konstr.votingsystem.model.User;
+import org.konstr.votingsystem.to.UserTo;
 
 import java.util.Objects;
 
@@ -28,6 +29,15 @@ public class UserTestData {
                             && Objects.equals(expected.getEmail(), actual.getEmail())
                             && Objects.equals(expected.isEnabled(), actual.isEnabled())
                             && Objects.equals(expected.getRoles(), actual.getRoles())
+                    )
+    );
+
+    public static final ModelMatcher<UserTo> MATCHER_TO = ModelMatcher.of(UserTo.class,
+            (expected, actual) -> expected == actual ||
+                    (Objects.equals(expected.getPassword(), actual.getPassword())
+                            && Objects.equals(expected.getId(), actual.getId())
+                            && Objects.equals(expected.getName(), actual.getName())
+                            && Objects.equals(expected.getEmail(), actual.getEmail())
                     )
     );
 }

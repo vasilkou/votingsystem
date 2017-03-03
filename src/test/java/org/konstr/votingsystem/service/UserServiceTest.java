@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.konstr.votingsystem.model.Role;
 import org.konstr.votingsystem.model.User;
+import org.konstr.votingsystem.to.UserTo;
+import org.konstr.votingsystem.util.UserUtil;
 import org.konstr.votingsystem.util.ValidationUtil;
 import org.konstr.votingsystem.util.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,12 @@ public class UserServiceTest {
     public void testGet() throws Exception {
         User user = service.get(ADMIN_ID);
         MATCHER.assertEquals(ADMIN, user);
+    }
+
+    @Test
+    public void testGetTo() throws Exception {
+        UserTo userTo = UserUtil.asTo(service.get(ADMIN_ID));
+        MATCHER_TO.assertEquals(UserUtil.asTo(ADMIN), userTo);
     }
 
     @Test(expected = NotFoundException.class)
@@ -102,6 +110,15 @@ public class UserServiceTest {
         updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
         service.update(updated);
         MATCHER.assertEquals(updated, service.get(USER_ID));
+    }
+
+    @Test
+    public void testUpdateTo() throws Exception {
+        UserTo updated = UserUtil.asTo(new User(USER));
+        updated.setName("Новое имя");
+        updated.setEmail("updated@gmail.com");
+        service.update(updated);
+        MATCHER_TO.assertEquals(updated, UserUtil.asTo(service.get(USER_ID)));
     }
 
     @Test(expected = DataAccessException.class)

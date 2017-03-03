@@ -104,7 +104,6 @@ public class User extends NamedEntity {
                 "id=" + getId() +
                 ", name=" + getName() +
                 ", email=" + email +
-                ", password=" + password +
                 ", enabled=" + enabled +
                 ", registered=" + registered +
                 ", roles=" + roles +
