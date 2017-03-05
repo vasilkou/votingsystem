@@ -8,7 +8,6 @@ import org.konstr.votingsystem.model.Role;
 import org.konstr.votingsystem.model.User;
 import org.konstr.votingsystem.to.UserTo;
 import org.konstr.votingsystem.util.UserUtil;
-import org.konstr.votingsystem.util.ValidationUtil;
 import org.konstr.votingsystem.util.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -23,7 +22,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.konstr.votingsystem.TestUtil.validateRootCause;
 import static org.konstr.votingsystem.UserTestData.*;
 
 /**
@@ -146,14 +145,5 @@ public class UserServiceTest {
         validateRootCause(() -> service.update(new User(USER_ID, "User", "  ", "password", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.update(new User(USER_ID, "User", "invalid@yandex.ru", "  ", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.update(new User(USER_ID, "User", "invalid@yandex.ru", "123", Role.ROLE_USER)), ConstraintViolationException.class);
-    }
-
-    public static <T extends Throwable> void validateRootCause(Runnable runnable, Class<T> exceptionClass) {
-        try {
-            runnable.run();
-            Assert.fail("Expected " + exceptionClass.getName());
-        } catch (Exception e) {
-            Assert.assertThat(ValidationUtil.getRootCause(e), instanceOf(exceptionClass));
-        }
     }
 }
