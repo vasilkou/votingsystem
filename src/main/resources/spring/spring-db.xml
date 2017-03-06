@@ -13,9 +13,7 @@
 
     <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
 
-<!--
     <context:component-scan base-package="org.konstr.**.repository"/>
--->
     <jpa:repositories base-package="org.konstr.**.repository"/>
 
     <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">

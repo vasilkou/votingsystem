@@ -1,7 +1,6 @@
 package org.konstr.votingsystem.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 
 /**
@@ -13,7 +12,6 @@ import javax.validation.constraints.DecimalMin;
 public class Dish extends NamedEntity {
 
     @DecimalMin("0.00")
-    @DecimalMax("1_000_000.00")
     private Float price;
 
     @ManyToOne(fetch = FetchType.LAZY)

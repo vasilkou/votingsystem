@@ -10,19 +10,19 @@ import java.util.List;
  * Date: 01-Mar-17.
  */
 public interface DishService {
-    Dish save(Dish dish, Integer restaurantId);
+    Dish save(Dish dish, int restaurantId);
 
-    List<Dish> saveMenu(List<Dish> menu, Integer restaurantId);
+    List<Dish> saveMenu(List<Dish> menu, int restaurantId);
 
-    Dish get(int id) throws NotFoundException;
+    Dish get(int id, int restaurantId) throws NotFoundException;
 
     List<Dish> getMenu(int restaurantId);
 
-    void update(Dish dish);
+    Dish update(Dish dish, int restaurantId);
 
-    void updateMenu(List<Dish> menu, int restaurantId);
+    List<Dish> updateMenu(List<Dish> menu, int restaurantId);
 
-    void delete(int id) throws NotFoundException;
+    void delete(int id, int restaurantId) throws NotFoundException;
 
     void deleteMenu(int restaurantId) throws NotFoundException;
 }
