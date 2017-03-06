@@ -1,11 +1,21 @@
 package org.konstr.votingsystem.service;
 
+import org.konstr.votingsystem.model.Restaurant;
 import org.konstr.votingsystem.model.Vote;
-import org.konstr.votingsystem.to.VotingResults;
+import org.konstr.votingsystem.model.VoteResult;
+import org.konstr.votingsystem.repository.RestaurantRepository;
+import org.konstr.votingsystem.repository.UserRepository;
+import org.konstr.votingsystem.repository.VoteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
+
+import static org.konstr.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 /**
  * Created by Yury Vasilkou
@@ -13,23 +23,42 @@ import java.util.List;
  */
 @Service
 public class VoteServiceImpl implements VoteService {
+    public static final Comparator<VoteResult> VOTES_DESC = Comparator.comparing(VoteResult::getVotes).reversed().thenComparing(VoteResult::getRestaurantName);
+
+    @Autowired
+    private VoteRepository repository;
+
+    @Autowired
+    private RestaurantRepository restaurantRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Transactional
     @Override
-    public Vote vote(int restaurantId, int userId) {
-        throw new UnsupportedOperationException();
+    public void vote(int restaurantId, int userId) {
+        Restaurant restaurant = checkNotFoundWithId(restaurantRepository.findOne(restaurantId), restaurantId);
+
+        Vote vote = repository.findByUserId(userId, LocalDate.now());
+        if (vote == null) {
+            vote = new Vote(null, userRepository.getOne(userId));
+        }
+        vote.setRestaurant(restaurant);
+        vote.setRestaurantName(restaurant.getName());
+
+        repository.save(vote);
     }
 
     @Override
-    public VotingResults getCurrentResults() {
-        throw new UnsupportedOperationException();
+    public List<VoteResult> getCurrentResults() {
+        return getResultsByDate(LocalDate.now());
     }
 
     @Override
-    public VotingResults getResultsByDate(LocalDate date) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<VotingResults> getFilteredResults(LocalDate start, LocalDate end) {
-        throw new UnsupportedOperationException();
+    public List<VoteResult> getResultsByDate(LocalDate date) {
+        Assert.notNull(date, "date must not be null");
+        List<VoteResult> result = repository.getVotesByDate(date);
+        result.sort(VOTES_DESC);
+        return result;
     }
 }

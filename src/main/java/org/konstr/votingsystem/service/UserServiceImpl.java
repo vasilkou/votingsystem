@@ -25,7 +25,6 @@ import static org.konstr.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 public class UserServiceImpl implements UserService {
     private static final Sort SORT_NAME_EMAIL = new Sort("name", "email");
 
-
     @Autowired
     private UserRepository repository;
 

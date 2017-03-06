@@ -29,6 +29,9 @@ public class Restaurant extends NamedEntity {
     @OrderBy("name ASC")
     private List<Dish> menu;
 
+    @OneToMany(mappedBy = "restaurant")
+    private List<Vote> votes;
+
     public Restaurant() {
     }
 

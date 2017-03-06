@@ -30,10 +30,15 @@ INSERT INTO dishes (name, price, restaurant_id) VALUES
   ('Kalyan', 32.50, 100004),
   ('Pahlava', 15.10, 100004);
 
+INSERT INTO users (name, email, password) VALUES
+  ('111', '111www@gmail.com', 'qwerty666'),
+  ('222', '222www@gmail.com', 'wasd');
+
 INSERT INTO votes (voter, selected, restaurant_name, date) VALUES
   (100000, 100002, 'Susi Vesla', '2017-02-27'),
   (100001, 100003, 'Шоколадница', '2017-02-27'),
   (100000, 100004, 'Chaihana', '2017-02-28'),
   (100001, 100004, 'Chaihana', '2017-02-28'),
   (100000, 100002, 'Susi Vesla', now),
-  (100001, 100003, 'Шоколадница', now);
+  (100001, 100003, 'Шоколадница', now),
+  (100012, 100003, 'Шоколадница', now);

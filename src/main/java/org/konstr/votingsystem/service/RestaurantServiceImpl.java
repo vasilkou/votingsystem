@@ -8,6 +8,7 @@ import org.konstr.votingsystem.util.RestaurantUtil;
 import org.konstr.votingsystem.util.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
@@ -35,6 +36,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         return repository.save(restaurant);
     }
 
+    @Transactional
     @Override
     public List<RestaurantTo> getAll(int userId) {
         return RestaurantUtil.getWithVoteResults(

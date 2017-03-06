@@ -1,7 +1,6 @@
 package org.konstr.votingsystem.service;
 
-import org.konstr.votingsystem.model.Vote;
-import org.konstr.votingsystem.to.VotingResults;
+import org.konstr.votingsystem.model.VoteResult;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,12 +10,9 @@ import java.util.List;
  * Date: 01-Mar-17.
  */
 public interface VoteService {
+    void vote(int restaurantId, int userId);
 
-    Vote vote(int restaurantId, int userId);
+    List<VoteResult> getCurrentResults();
 
-    VotingResults getCurrentResults();
-
-    VotingResults getResultsByDate(LocalDate date);
-
-    List<VotingResults> getFilteredResults(LocalDate start, LocalDate end);
+    List<VoteResult> getResultsByDate(LocalDate date);
 }

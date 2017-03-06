@@ -25,6 +25,9 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
 
     Restaurant findByName(String name);
 
+    @Override
+    Restaurant getOne(Integer integer);
+
     @Query("SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.menu")
     List<Restaurant> getAllWithMenu();
 

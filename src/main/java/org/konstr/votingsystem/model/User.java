@@ -39,6 +39,9 @@ public class User extends NamedEntity {
     @BatchSize(size = 200)
     private Set<Role> roles;
 
+    @OneToMany(mappedBy = "voter")
+    private List<Vote> votes;
+
     public User() {
     }
 

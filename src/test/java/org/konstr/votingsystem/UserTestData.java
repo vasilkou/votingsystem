@@ -5,6 +5,8 @@ import org.konstr.votingsystem.model.Role;
 import org.konstr.votingsystem.model.User;
 import org.konstr.votingsystem.to.UserTo;
 
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.Objects;
 
 import static org.konstr.votingsystem.model.BaseEntity.START_SEQ;
@@ -20,6 +22,8 @@ public class UserTestData {
 
     public static final User USER = new User(USER_ID, "User", "user@yandex.ru", "password", Role.ROLE_USER);
     public static final User ADMIN = new User(ADMIN_ID, "Admin", "admin@gmail.com", "admin", Role.ROLE_ADMIN, Role.ROLE_USER);
+    public static final User USER_1 = new User(START_SEQ + 12, "111", "111www@gmail.com", "qwerty666", true, Collections.emptySet());
+    public static final User USER_2 = new User(START_SEQ + 13, "222", "222www@gmail.com", "wasd", true, Collections.emptySet());
 
     public static final ModelMatcher<User> MATCHER = ModelMatcher.of(User.class,
             (expected, actual) -> expected == actual ||

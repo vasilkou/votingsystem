@@ -17,6 +17,13 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
 
+    @Transactional
+    @Override
+    Dish save(Dish dish);
+
+    @Override
+    Dish findOne(Integer integer);
+
     @Query("SELECT d from Dish d WHERE d.restaurant.id=:restaurantId")
     List<Dish> findMenuAndSort(@Param("restaurantId") int restaurantId, Sort sort);
 

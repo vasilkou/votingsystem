@@ -1,12 +1,9 @@
 package org.konstr.votingsystem.model;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -18,14 +15,13 @@ import java.time.LocalDate;
 @Table(name = "votes")
 public class Vote extends BaseEntity {
 
-    @NotNull
-    @Range(min = 0)
-    private Integer voter;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "voter")
+    private User voter;
 
-    @NotNull
-    @Range(min = 0)
-    @Column(name = "selected")
-    private Integer restaurant;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "selected")
+    private Restaurant restaurant;
 
     @NotBlank
     @SafeHtml
@@ -38,26 +34,24 @@ public class Vote extends BaseEntity {
     public Vote() {
     }
 
-    public Vote(Integer id, Integer voter, Integer restaurant, String restaurantName) {
+    public Vote(Integer id, User user) {
         super(id);
-        this.voter = voter;
-        this.restaurant = restaurant;
-        this.restaurantName = restaurantName;
+        this.voter = user;
     }
 
-    public Integer getVoter() {
+    public User getVoter() {
         return voter;
     }
 
-    public void setVoter(Integer voter) {
+    public void setVoter(User voter) {
         this.voter = voter;
     }
 
-    public Integer getRestaurant() {
+    public Restaurant getRestaurant() {
         return restaurant;
     }
 
-    public void setRestaurant(Integer restaurant) {
+    public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
 
@@ -81,8 +75,6 @@ public class Vote extends BaseEntity {
     public String toString() {
         return "Vote{" +
                 "id=" + getId() +
-                ", voter=" + voter +
-                ", restaurant=" + restaurant +
                 ", restaurantName='" + restaurantName + '\'' +
                 ", date=" + date +
                 '}';
