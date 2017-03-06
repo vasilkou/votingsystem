@@ -14,7 +14,7 @@ public interface RestaurantService {
 
     Restaurant save(Restaurant restaurant);
 
-    List<RestaurantTo> getAll();
+    List<RestaurantTo> getAll(int userId);
 
     Restaurant get(int id) throws NotFoundException;
 

@@ -3,6 +3,7 @@ package org.konstr.votingsystem.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.konstr.votingsystem.AuthorizedUser;
 import org.konstr.votingsystem.DishTestData;
 import org.konstr.votingsystem.model.Dish;
 import org.konstr.votingsystem.model.Restaurant;
@@ -65,7 +66,7 @@ public class RestaurantServiceTest {
 
     @Test
     public void testGetAll() throws Exception {
-        List<RestaurantTo> all = service.getAll();
+        List<RestaurantTo> all = service.getAll(AuthorizedUser.id());
         MATCHER_TO.assertCollectionEquals(
                 Arrays.asList(asTo(RESTAURANT_3), asTo(RESTAURANT_1, true), asTo(RESTAURANT_2)),
                 all
@@ -88,14 +89,14 @@ public class RestaurantServiceTest {
         newRestaurant.setId(created.getId());
         MATCHER_TO.assertCollectionEquals(
                 Arrays.asList(asTo(RESTAURANT_3), asTo(created), asTo(RESTAURANT_1, true), asTo(RESTAURANT_2)),
-                service.getAll()
+                service.getAll(AuthorizedUser.id())
         );
     }
 
     @Test
     public void testDelete() throws Exception {
         service.delete(RESTAURANT_1_ID);
-        MATCHER_TO.assertCollectionEquals(Arrays.asList(asTo(RESTAURANT_3), asTo(RESTAURANT_2)), service.getAll());
+        MATCHER_TO.assertCollectionEquals(Arrays.asList(asTo(RESTAURANT_3), asTo(RESTAURANT_2)), service.getAll(AuthorizedUser.id()));
     }
 
     @Test(expected = NotFoundException.class)

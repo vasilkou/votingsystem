@@ -1,16 +1,19 @@
 package org.konstr.votingsystem.service;
 
 import org.konstr.votingsystem.model.Restaurant;
-import org.konstr.votingsystem.repository.DishRepository;
 import org.konstr.votingsystem.repository.RestaurantRepository;
+import org.konstr.votingsystem.repository.VoteRepository;
 import org.konstr.votingsystem.to.RestaurantTo;
+import org.konstr.votingsystem.util.RestaurantUtil;
 import org.konstr.votingsystem.util.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import static org.konstr.votingsystem.util.ValidationUtil.checkNotFound;
 import static org.konstr.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 /**
@@ -19,13 +22,12 @@ import static org.konstr.votingsystem.util.ValidationUtil.checkNotFoundWithId;
  */
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
-//    private static final Sort SORT_NAME = new Sort("name");
 
     @Autowired
     private RestaurantRepository repository;
 
     @Autowired
-    private DishRepository dishRepository;
+    private VoteRepository voteRepository;
 
     @Override
     public Restaurant save(Restaurant restaurant) {
@@ -34,9 +36,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<RestaurantTo> getAll() {
-// return TO
-        return /*repository.getAllWithMenu()*/ null;
+    public List<RestaurantTo> getAll(int userId) {
+        return RestaurantUtil.getWithVoteResults(
+                repository.getAllWithMenu(),
+                voteRepository.findSelectedRestaurantId(userId, LocalDate.now())
+        );
     }
 
     @Override
@@ -46,16 +50,18 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurant getByName(String name) throws NotFoundException {
-        throw new UnsupportedOperationException();
+        Assert.notNull(name, "name must not be null");
+        return checkNotFound(repository.findByName(name), "name=" + name);
     }
 
     @Override
     public void update(Restaurant restaurant) {
-        throw new UnsupportedOperationException();
+        Assert.notNull(restaurant, "restaurant must not be null");
+        repository.save(restaurant);
     }
 
     @Override
     public void delete(int id) throws NotFoundException {
-        throw new UnsupportedOperationException();
+        checkNotFoundWithId(repository.delete(id) != 0, id);
     }
 }

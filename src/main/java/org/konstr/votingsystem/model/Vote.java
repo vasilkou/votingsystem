@@ -24,6 +24,7 @@ public class Vote extends BaseEntity {
 
     @NotNull
     @Range(min = 0)
+    @Column(name = "selected")
     private Integer restaurant;
 
     @NotBlank
