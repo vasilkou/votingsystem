@@ -2,15 +2,10 @@ package org.konstr.votingsystem.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.konstr.votingsystem.model.Dish;
 import org.konstr.votingsystem.model.Restaurant;
 import org.konstr.votingsystem.util.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
@@ -19,19 +14,12 @@ import java.util.List;
 
 import static org.konstr.votingsystem.DishTestData.*;
 import static org.konstr.votingsystem.RestaurantTestData.RESTAURANT_1_ID;
-import static org.konstr.votingsystem.TestUtil.validateRootCause;
 
 /**
  * Created by Yury Vasilkou
  * Date: 05-Mar-17.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class DishServiceTest {
+public class DishServiceTest extends AbstractServiceTest {
 
     @Autowired
     private DishService service;

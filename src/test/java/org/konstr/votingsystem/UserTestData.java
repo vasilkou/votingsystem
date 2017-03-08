@@ -6,7 +6,6 @@ import org.konstr.votingsystem.model.User;
 import org.konstr.votingsystem.to.UserTo;
 
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.Objects;
 
 import static org.konstr.votingsystem.model.BaseEntity.START_SEQ;

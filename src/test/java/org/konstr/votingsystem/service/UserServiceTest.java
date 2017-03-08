@@ -3,7 +3,6 @@ package org.konstr.votingsystem.service;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.konstr.votingsystem.model.Role;
 import org.konstr.votingsystem.model.User;
 import org.konstr.votingsystem.to.UserTo;
@@ -11,10 +10,6 @@ import org.konstr.votingsystem.util.UserUtil;
 import org.konstr.votingsystem.util.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
@@ -22,20 +17,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 
-import static org.konstr.votingsystem.TestUtil.validateRootCause;
 import static org.konstr.votingsystem.UserTestData.*;
 
 /**
  * Created by Yury Vasilkou
  * Date: 28-Feb-17.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class UserServiceTest {
+public class UserServiceTest extends AbstractServiceTest {
 
     @Autowired
     private UserService service;

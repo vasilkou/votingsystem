@@ -12,10 +12,8 @@ import java.util.List;
  * Created by Yury Vasilkou
  * Date: 05-Mar-17.
  */
-public class RestaurantTo implements Serializable {
+public class RestaurantTo extends BaseTo implements Serializable {
     private static final long serialVersionUID = 1L;
-
-    private Integer id;
 
     private String name;
 
@@ -35,7 +33,7 @@ public class RestaurantTo implements Serializable {
     }
 
     public RestaurantTo(Restaurant restaurant, boolean selected) {
-        this.id = restaurant.getId();
+        super(restaurant.getId());
         this.name = restaurant.getName();
         this.address = restaurant.getAddress();
         this.phoneNumber = restaurant.getPhoneNumber();
@@ -45,14 +43,6 @@ public class RestaurantTo implements Serializable {
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

@@ -6,10 +6,8 @@ import java.io.Serializable;
  * Created by Yury Vasilkou
  * Date: 03-Mar-17.
  */
-public class UserTo implements Serializable {
+public class UserTo extends BaseTo implements Serializable {
     private static final long serialVersionUID = 1L;
-
-    private Integer id;
 
     private String name;
 
@@ -21,7 +19,7 @@ public class UserTo implements Serializable {
     }
 
     public UserTo(Integer id, String name, String email, String password) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.email = email;
         this.password = password;
@@ -29,14 +27,6 @@ public class UserTo implements Serializable {
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

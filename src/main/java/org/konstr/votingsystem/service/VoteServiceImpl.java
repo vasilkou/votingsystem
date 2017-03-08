@@ -16,6 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static org.konstr.votingsystem.util.ValidationUtil.checkNotFoundWithId;
+import static org.konstr.votingsystem.util.VoteUtil.checkVoteTime;
 
 /**
  * Created by Yury Vasilkou
@@ -23,7 +24,8 @@ import static org.konstr.votingsystem.util.ValidationUtil.checkNotFoundWithId;
  */
 @Service
 public class VoteServiceImpl implements VoteService {
-    public static final Comparator<VoteResult> VOTES_DESC = Comparator.comparing(VoteResult::getVotes).reversed().thenComparing(VoteResult::getRestaurantName);
+    public static final Comparator<VoteResult> VOTES_DESC = Comparator.comparing(VoteResult::getVotes).reversed()
+            .thenComparing(VoteResult::getRestaurantName);
 
     @Autowired
     private VoteRepository repository;
@@ -40,6 +42,8 @@ public class VoteServiceImpl implements VoteService {
         Restaurant restaurant = checkNotFoundWithId(restaurantRepository.findOne(restaurantId), restaurantId);
 
         Vote vote = repository.findByUserId(userId, LocalDate.now());
+        checkVoteTime(vote);
+
         if (vote == null) {
             vote = new Vote(null, userRepository.getOne(userId));
         }
