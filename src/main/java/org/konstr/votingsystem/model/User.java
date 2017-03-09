@@ -1,5 +1,6 @@
 package org.konstr.votingsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -39,6 +40,7 @@ public class User extends NamedEntity {
     @BatchSize(size = 200)
     private Set<Role> roles;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "voter")
     private List<Vote> votes;
 

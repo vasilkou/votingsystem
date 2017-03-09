@@ -1,10 +1,8 @@
 package org.konstr.votingsystem.to;
 
-/**
- * gkislin
- * 18.02.2017
- */
-abstract public class BaseTo {
+import org.konstr.votingsystem.HasId;
+
+abstract public class BaseTo implements HasId {
     protected Integer id;
 
     public BaseTo() {
@@ -14,15 +12,13 @@ abstract public class BaseTo {
         this.id = id;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public boolean isNew() {
-        return (getId() == null);
     }
 }

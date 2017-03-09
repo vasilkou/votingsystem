@@ -1,5 +1,6 @@
 package org.konstr.votingsystem.util;
 
+import org.konstr.votingsystem.HasId;
 import org.konstr.votingsystem.util.exceptions.NotFoundException;
 
 /**
@@ -30,7 +31,6 @@ public class ValidationUtil {
         }
     }
 
-/*
     public static void checkNew(HasId bean) {
         if (!bean.isNew()) {
             throw new IllegalArgumentException(bean + " must be new (id=null)");
@@ -38,14 +38,12 @@ public class ValidationUtil {
     }
 
     public static void checkIdConsistent(HasId bean, int id) {
-//      http://stackoverflow.com/a/32728226/548473
         if (bean.isNew()) {
             bean.setId(id);
         } else if (bean.getId() != id) {
             throw new IllegalArgumentException(bean + " must be with id=" + id);
         }
     }
-*/
 
     public static Throwable getRootCause(Throwable t) {
         Throwable result = t;
