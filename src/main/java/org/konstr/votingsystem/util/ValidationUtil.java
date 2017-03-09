@@ -3,6 +3,8 @@ package org.konstr.votingsystem.util;
 import org.konstr.votingsystem.HasId;
 import org.konstr.votingsystem.util.exceptions.NotFoundException;
 
+import java.util.List;
+
 /**
  * Created by Yury Vasilkou
  * Date: 01-Mar-17.
@@ -35,6 +37,10 @@ public class ValidationUtil {
         if (!bean.isNew()) {
             throw new IllegalArgumentException(bean + " must be new (id=null)");
         }
+    }
+
+    public static void checkAllNew(List<? extends HasId> beans) {
+        beans.forEach(ValidationUtil::checkNew);
     }
 
     public static void checkIdConsistent(HasId bean, int id) {

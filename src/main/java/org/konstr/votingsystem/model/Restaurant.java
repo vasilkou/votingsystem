@@ -28,7 +28,7 @@ public class Restaurant extends NamedEntity {
 
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
-    @OrderBy("name ASC")
+    @OrderBy("UPPER(name) ASC")
     private List<Dish> menu;
 
     @JsonIgnore
