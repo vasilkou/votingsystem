@@ -23,7 +23,7 @@ public class RestaurantUtil {
 
     public static List<RestaurantTo> getWithVoteResults(List<Restaurant> all, Integer selectedRestaurantId) {
         return all.stream()
-                .sorted(Comparator.comparing(NamedEntity::getName))
+                .sorted(Comparator.comparing(NamedEntity::getName, String.CASE_INSENSITIVE_ORDER))
                 .map(restaurant -> new RestaurantTo(restaurant, restaurant.getId().equals(selectedRestaurantId)))
                 .collect(Collectors.toList());
     }

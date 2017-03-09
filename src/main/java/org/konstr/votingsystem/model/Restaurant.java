@@ -1,5 +1,6 @@
 package org.konstr.votingsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.util.CollectionUtils;
@@ -25,10 +26,12 @@ public class Restaurant extends NamedEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
     @OrderBy("name ASC")
     private List<Dish> menu;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
     private List<Vote> votes;
 

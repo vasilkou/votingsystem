@@ -1,5 +1,7 @@
 package org.konstr.votingsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 
@@ -14,6 +16,7 @@ public class Dish extends NamedEntity {
     @DecimalMin("0.00")
     private Float price;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
