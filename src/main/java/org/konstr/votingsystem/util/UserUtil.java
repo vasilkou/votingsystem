@@ -1,5 +1,6 @@
 package org.konstr.votingsystem.util;
 
+import org.konstr.votingsystem.model.Role;
 import org.konstr.votingsystem.model.User;
 import org.konstr.votingsystem.to.UserTo;
 
@@ -8,11 +9,9 @@ import org.konstr.votingsystem.to.UserTo;
  * Date: 02-Mar-17.
  */
 public class UserUtil {
-/*
     public static User createNewFromTo(UserTo newUser) {
-        return new User(null, newUser.getName(), newUser.getEmail().toLowerCase(), newUser.getPassword(), Role.ROLE_USER);
+        return new User(null, newUser.getName(), newUser.getEmail(), newUser.getPassword(), Role.ROLE_USER);
     }
-*/
 
     public static UserTo asTo(User user) {
         return new UserTo(user.getId(), user.getName(), user.getEmail(), user.getPassword());
