@@ -132,6 +132,5 @@ public class UserServiceTest extends AbstractServiceTest {
         validateRootCause(() -> service.update(new User(USER_ID, "  ", "invalid@yandex.ru", "password", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.update(new User(USER_ID, "User", "  ", "password", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.update(new User(USER_ID, "User", "invalid@yandex.ru", "  ", Role.ROLE_USER)), ConstraintViolationException.class);
-        validateRootCause(() -> service.update(new User(USER_ID, "User", "invalid@yandex.ru", "123", Role.ROLE_USER)), ConstraintViolationException.class);
     }
 }

@@ -6,10 +6,12 @@ DELETE FROM users;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO users (name, email, password)
-VALUES ('User', 'user@yandex.ru', 'password');
+-- pwd: password
+VALUES ('User', 'user@yandex.ru', '$2a$10$l/0pK93oK/nSg/CL0bJsC.FjHhkLJki7JrqtbUyqiwwYeY9uMs1Me');
 
 INSERT INTO users (name, email, password)
-VALUES ('Admin', 'admin@gmail.com', 'admin');
+-- pwd: admin
+VALUES ('Admin', 'admin@gmail.com', '$2a$10$VqJ4z0/59AUGaZu8x4HXiO6ZNG.aC.WJOQTzd1ilQM1GQ9HEJngJO');
 
 INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', 100000),
@@ -31,8 +33,10 @@ INSERT INTO dishes (name, price, restaurant_id) VALUES
   ('Pahlava', 15.10, 100004);
 
 INSERT INTO users (name, email, password) VALUES
-  ('111', '111www@gmail.com', 'qwerty666'),
-  ('222', '222www@gmail.com', 'wasd');
+-- pwd: qwerty666
+  ('111', '111www@gmail.com', '$2a$10$Bb9dLG0ggNiaQksppM3ZWeFkSDHfJD/lIXYP7f6RGezO9rhQ1TQAO'),
+-- pwd: wasd
+  ('222', '222www@gmail.com', '$2a$10$hNh75kltIyZHtjiZA3B8WeyULBLmJsls51FW3tkxpBfhIYOVgT6e2');
 
 INSERT INTO votes (voter, selected, restaurant_name, date) VALUES
   (100000, 100002, 'Susi Vesla', '2017-02-27'),

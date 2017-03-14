@@ -2,7 +2,6 @@ package org.konstr.votingsystem.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.konstr.votingsystem.AuthorizedUser;
 import org.konstr.votingsystem.DishTestData;
 import org.konstr.votingsystem.model.Dish;
 import org.konstr.votingsystem.model.Restaurant;
@@ -15,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.konstr.votingsystem.RestaurantTestData.*;
+import static org.konstr.votingsystem.UserTestData.USER_ID;
 import static org.konstr.votingsystem.util.RestaurantUtil.asTo;
 
 /**
@@ -54,7 +54,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     public void testGetAll() throws Exception {
-        List<RestaurantTo> all = service.getAll(AuthorizedUser.id());
+        List<RestaurantTo> all = service.getAll(USER_ID);
         MATCHER_TO.assertCollectionEquals(
                 Arrays.asList(asTo(RESTAURANT_3), asTo(RESTAURANT_1, true), asTo(RESTAURANT_2)),
                 all
@@ -77,14 +77,14 @@ public class RestaurantServiceTest extends AbstractServiceTest {
         newRestaurant.setId(created.getId());
         MATCHER_TO.assertCollectionEquals(
                 Arrays.asList(asTo(RESTAURANT_3), asTo(created), asTo(RESTAURANT_1, true), asTo(RESTAURANT_2)),
-                service.getAll(AuthorizedUser.id())
+                service.getAll(USER_ID)
         );
     }
 
     @Test
     public void testDelete() throws Exception {
         service.delete(RESTAURANT_1_ID);
-        MATCHER_TO.assertCollectionEquals(Arrays.asList(asTo(RESTAURANT_3), asTo(RESTAURANT_2)), service.getAll(AuthorizedUser.id()));
+        MATCHER_TO.assertCollectionEquals(Arrays.asList(asTo(RESTAURANT_3), asTo(RESTAURANT_2)), service.getAll(USER_ID));
     }
 
     @Test(expected = NotFoundException.class)
