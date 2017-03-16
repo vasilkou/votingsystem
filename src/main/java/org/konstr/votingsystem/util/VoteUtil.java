@@ -10,11 +10,12 @@ import java.time.LocalTime;
  * Date: 08-Mar-17.
  */
 public class VoteUtil {
+    public static final String VOTE_FORBIDDEN_KEY = "exception.votes.forbidden";
     public static final LocalTime END_OF_REVOTING = LocalTime.of(11, 0);
 
     public static void checkVoteTime(Vote vote) {
         if (vote != null && LocalTime.now().isAfter(END_OF_REVOTING)) {
-            throw new VoteForbiddenException("Vote can't be changed after " + END_OF_REVOTING);
+            throw new VoteForbiddenException(VOTE_FORBIDDEN_KEY + " " + END_OF_REVOTING);
         }
     }
 }

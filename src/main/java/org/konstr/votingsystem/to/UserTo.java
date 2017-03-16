@@ -23,7 +23,7 @@ public class UserTo extends BaseTo implements Serializable {
     @SafeHtml
     private String email;
 
-    @Size(min = 5, max = 64, message = " must be between 5 and 64 characters")
+    @Size(min = 5, max = 64)
     @SafeHtml
     private String password;
 

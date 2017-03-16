@@ -11,6 +11,10 @@ import java.util.List;
  */
 public class ValidationUtil {
 
+    public static final String NOT_FOUND_KEY = "exception.entity.not_found";
+    public static final String MUST_BE_NEW_KEY = "exception.entity.must_be_new";
+    public static final String WRONG_ID_KEY = "exception.entity.must_be_with_id";
+
     private ValidationUtil() {
     }
 
@@ -29,13 +33,13 @@ public class ValidationUtil {
 
     public static void checkNotFound(boolean found, String msg) {
         if (!found) {
-            throw new NotFoundException("Not found entity with " + msg);
+            throw new NotFoundException(NOT_FOUND_KEY + " " + msg);
         }
     }
 
     public static void checkNew(HasId bean) {
         if (!bean.isNew()) {
-            throw new IllegalArgumentException(bean + " must be new (id=null)");
+            throw new IllegalArgumentException(bean + " " + MUST_BE_NEW_KEY);
         }
     }
 
@@ -47,7 +51,7 @@ public class ValidationUtil {
         if (bean.isNew()) {
             bean.setId(id);
         } else if (bean.getId() != id) {
-            throw new IllegalArgumentException(bean + " must be with id=" + id);
+            throw new IllegalArgumentException(bean + " " + WRONG_ID_KEY + id);
         }
     }
 
