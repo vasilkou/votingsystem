@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.konstr.votingsystem.model.Role;
 import org.konstr.votingsystem.model.User;
+import org.konstr.votingsystem.repository.JpaUtil;
 import org.konstr.votingsystem.to.UserTo;
 import org.konstr.votingsystem.util.UserUtil;
 import org.konstr.votingsystem.util.exceptions.NotFoundException;
@@ -26,11 +27,15 @@ import static org.konstr.votingsystem.UserTestData.*;
 public class UserServiceTest extends AbstractServiceTest {
 
     @Autowired
+    private JpaUtil jpaUtil;
+
+    @Autowired
     private UserService service;
 
     @Before
     public void setUp() throws Exception {
         service.evictCache();
+        jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Test

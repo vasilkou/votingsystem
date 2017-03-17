@@ -25,4 +25,7 @@
            diskExpiryThreadIntervalSeconds="1"
            memoryStoreEvictionPolicy="LRU"/>
 
+    <cache name="org.konstr.votingsystem.model.User"
+           maxElementsInMemory="25000"/>
+
 </ehcache>
