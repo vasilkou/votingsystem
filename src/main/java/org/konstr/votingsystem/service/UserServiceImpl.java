@@ -7,6 +7,8 @@ import org.konstr.votingsystem.to.UserTo;
 import org.konstr.votingsystem.util.UserUtil;
 import org.konstr.votingsystem.util.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,12 +33,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserRepository repository;
 
+    @CacheEvict(value = "users", allEntries = true)
     @Override
     public User save(User user) {
         Assert.notNull(user, "user must not be null");
         return repository.save(prepareToSave(user));
     }
 
+    @Cacheable("users")
     @Override
     public List<User> getAll() {
         return repository.findAll(SORT_NAME_EMAIL);
@@ -58,12 +62,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return checkNotFound(repository.findByEmail(email), "email=" + email);
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     @Override
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
         repository.save(prepareToSave(user));
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     @Transactional
     @Override
     public void update(UserTo userTo) {
@@ -72,11 +78,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         repository.save(prepareToSave(user));
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     @Override
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id) != 0, id);
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     @Transactional
     @Override
     public void enable(int id, boolean enabled) {
@@ -92,5 +100,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException("User " + email + " is not found");
         }
         return new AuthorizedUser(u);
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Override
+    public void evictCache() {
     }
 }

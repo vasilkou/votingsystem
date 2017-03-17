@@ -30,6 +30,7 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Before
     public void setUp() throws Exception {
+        service.evictCache();
     }
 
     @Test
@@ -61,7 +62,7 @@ public class UserServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void getAll() throws Exception {
+    public void testGetAll() throws Exception {
         Collection<User> all = service.getAll();
         MATCHER.assertCollectionEquals(Arrays.asList(USER_1, USER_2, ADMIN, USER), all);
     }

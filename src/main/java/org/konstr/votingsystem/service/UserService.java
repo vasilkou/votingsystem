@@ -28,4 +28,6 @@ public interface UserService {
     void delete(int id) throws NotFoundException;
 
     void enable(int id, boolean enabled);
+
+    void evictCache();
 }
