@@ -29,7 +29,7 @@ public class User extends NamedEntity {
     private String email;
 
     @NotBlank
-    @Length(min = 5)
+    @Length(min = 5, max = 64)
     @SafeHtml
     private String password;
 

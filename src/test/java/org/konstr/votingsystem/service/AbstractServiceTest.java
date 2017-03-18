@@ -15,10 +15,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
  * Date: 08-Mar-17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
+@ContextConfiguration("classpath:spring/spring-app.xml")
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 abstract public class AbstractServiceTest {
     public static <T extends Throwable> void validateRootCause(Runnable runnable, Class<T> exceptionClass) {

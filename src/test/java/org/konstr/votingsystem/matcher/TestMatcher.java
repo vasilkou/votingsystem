@@ -2,6 +2,7 @@ package org.konstr.votingsystem.matcher;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
+import org.konstr.votingsystem.web.json.JsonUtil;
 
 /**
  * GKislin
@@ -21,10 +22,8 @@ abstract public class TestMatcher<T> extends BaseMatcher<String> {
 
     abstract protected boolean compare(T expected, String actual);
 
-/*
     @Override
     public void describeTo(Description description) {
         description.appendText(JsonUtil.writeValue(expected));
     }
-*/
 }

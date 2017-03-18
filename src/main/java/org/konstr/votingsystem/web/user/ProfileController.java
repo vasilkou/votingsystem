@@ -18,8 +18,9 @@ import static org.slf4j.LoggerFactory.getLogger;
  * Date: 22-Feb-17.
  */
 @RestController
-@RequestMapping("/v1/profile")
+@RequestMapping(ProfileController.URL)
 public class ProfileController {
+    static final String URL = "/v1/profile";
     private static final Logger LOG = getLogger(ProfileController.class);
 
     @Autowired

@@ -12,8 +12,6 @@ public interface DishRepository {
     // null if updated dish do not belong to restaurant
     Dish save(Dish dish, int restaurantId);
 
-    List<Dish> saveMenu(List<Dish> menu, Integer restaurantId);
-
     // null if dish do not belong to restaurant
     Dish get(int id, int restaurantId);
 

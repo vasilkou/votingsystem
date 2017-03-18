@@ -38,6 +38,9 @@ INSERT INTO users (name, email, password) VALUES
 -- pwd: wasd
   ('222', '222www@gmail.com', '$2a$10$hNh75kltIyZHtjiZA3B8WeyULBLmJsls51FW3tkxpBfhIYOVgT6e2');
 
+INSERT INTO user_roles (role, user_id) VALUES
+  ('ROLE_USER', 100013);
+
 INSERT INTO votes (voter, selected, restaurant_name, date) VALUES
   (100000, 100002, 'Susi Vesla', '2017-02-27'),
   (100001, 100003, 'Шоколадница', '2017-02-27'),

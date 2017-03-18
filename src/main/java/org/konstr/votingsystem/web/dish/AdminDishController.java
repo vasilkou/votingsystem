@@ -57,22 +57,6 @@ public class AdminDishController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @PostMapping(value = "/{restaurantId}/menu",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Dish>> createMenu(@Valid @RequestBody List<Dish> menu,
-                                           @PathVariable("restaurantId") int restaurantId) {
-        checkAllNew(menu);
-        LOG.info("create " + menu + ", restaurant " + restaurantId);
-        List<Dish> created = service.saveMenu(menu, restaurantId);
-
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(URL + "/{restaurantId}/dishes")
-                .buildAndExpand(restaurantId).toUri();
-
-        return ResponseEntity.created(uriOfNewResource).body(created);
-    }
-
     @PutMapping(value = "/{restaurantId}/dishes/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@Valid @RequestBody Dish dish,
                        @PathVariable("restaurantId") int restaurantId,
@@ -80,12 +64,6 @@ public class AdminDishController {
         LOG.info("update " + dish + ", restaurant " + restaurantId);
         checkIdConsistent(dish, id);
         service.update(dish, restaurantId);
-    }
-
-    @PutMapping(value = "/{restaurantId}/dishes")
-    public void updateMenu(@Valid @RequestBody List<Dish> menu, @PathVariable("restaurantId") int restaurantId) {
-        LOG.info("update " + menu + ", restaurant " + restaurantId);
-        service.updateMenu(menu, restaurantId);
     }
 
     @DeleteMapping("/{restaurantId}/dishes/{id}")

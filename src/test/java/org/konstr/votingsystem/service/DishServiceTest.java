@@ -3,7 +3,6 @@ package org.konstr.votingsystem.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.konstr.votingsystem.model.Dish;
-import org.konstr.votingsystem.model.Restaurant;
 import org.konstr.votingsystem.util.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,9 +22,6 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Autowired
     private DishService service;
-
-    @Autowired
-    private RestaurantService restaurantService;
 
     @Before
     public void setUp() throws Exception {
@@ -57,23 +53,6 @@ public class DishServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void testSaveMenu() throws Exception {
-        Restaurant created = restaurantService.save(new Restaurant(null, "New Rest", "22 Grate st.", "222-24-33-121"));
-        List<Dish> newMenu = Arrays.asList(
-                new Dish(null, "one", 22.22f),
-                new Dish(null, "two", 33.33f),
-                new Dish(null, "z_three", 44.44f)
-        );
-        List<Dish> createdMenu = service.saveMenu(newMenu, created.getId());
-        newMenu.forEach(dish1 -> createdMenu.stream()
-                        .filter(dish2 -> dish1.getName().equals(dish2.getName()))
-                        .findFirst()
-                        .ifPresent(dish -> dish1.setId(dish.getId()))
-        );
-        MATCHER.assertCollectionEquals(newMenu, service.getMenu(created.getId()));
-    }
-
-    @Test
     public void testDelete() throws Exception {
         service.delete(DISH_1_R1_ID, RESTAURANT_1_ID);
         MATCHER.assertCollectionEquals(Collections.singletonList(DISH_2_R1), service.getMenu(RESTAURANT_1_ID));
@@ -102,15 +81,6 @@ public class DishServiceTest extends AbstractServiceTest {
         updated.setPrice(666.66f);
         service.update(updated, RESTAURANT_1_ID);
         MATCHER.assertEquals(updated, service.get(DISH_1_R1_ID, RESTAURANT_1_ID));
-    }
-
-    @Test
-    public void testUpdateMenu() throws Exception {
-        List<Dish> updated = Arrays.asList(new Dish(DISH_2_R1), new Dish(DISH_1_R1));
-        updated.get(0).setName("name 1");
-        updated.get(1).setName("name 2");
-        service.updateMenu(updated, RESTAURANT_1_ID);
-        MATCHER.assertCollectionEquals(updated, service.getMenu(RESTAURANT_1_ID));
     }
 
     @Test

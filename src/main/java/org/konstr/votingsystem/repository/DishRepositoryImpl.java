@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Yury Vasilkou
@@ -28,16 +27,8 @@ public class DishRepositoryImpl implements DishRepository {
         if (!dish.isNew() && get(dish.getId(), restaurantId) == null) {
             return null;
         }
-        dish.setRestaurant(restaurantRepository.getOne(restaurantId));
-        return repository.save(dish);
-    }
-
-    @Transactional
-    @Override
-    public List<Dish> saveMenu(List<Dish> menu, Integer restaurantId) {
-        return menu.stream()
-                .map(dish -> save(dish, restaurantId))
-                .collect(Collectors.toList());
+        dish.setRestaurant(restaurantRepository.findOne(restaurantId));
+        return dish.getRestaurant() != null ? repository.save(dish) : null;
     }
 
     @Override

@@ -12,15 +12,11 @@ import java.util.List;
 public interface DishService {
     Dish save(Dish dish, int restaurantId);
 
-    List<Dish> saveMenu(List<Dish> menu, int restaurantId);
-
     Dish get(int id, int restaurantId) throws NotFoundException;
 
     List<Dish> getMenu(int restaurantId);
 
     Dish update(Dish dish, int restaurantId);
-
-    List<Dish> updateMenu(List<Dish> menu, int restaurantId);
 
     void delete(int id, int restaurantId) throws NotFoundException;
 

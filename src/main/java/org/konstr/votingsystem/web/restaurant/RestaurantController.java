@@ -18,8 +18,9 @@ import java.util.List;
  * Date: 22-Feb-17.
  */
 @RestController
-@RequestMapping("/v1/restaurants")
+@RequestMapping(RestaurantController.URL)
 public class RestaurantController {
+    static final String URL = "/v1/restaurants";
     private static final Logger LOG = LoggerFactory.getLogger(RestaurantController.class);
 
     @Autowired

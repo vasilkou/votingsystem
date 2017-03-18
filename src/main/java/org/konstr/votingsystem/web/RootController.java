@@ -1,5 +1,6 @@
 package org.konstr.votingsystem.web;
 
+import org.konstr.votingsystem.model.User;
 import org.konstr.votingsystem.service.UserService;
 import org.konstr.votingsystem.to.UserTo;
 import org.slf4j.Logger;
@@ -21,17 +22,18 @@ import static org.konstr.votingsystem.util.ValidationUtil.checkNew;
  * Date: 14-Mar-17.
  */
 @RestController
-@RequestMapping("/v1/register")
+@RequestMapping(RootController.URL)
 public class RootController {
+    static final String URL = "/v1/register";
     private static final Logger LOG = LoggerFactory.getLogger(RootController.class);
 
     @Autowired
     private UserService service;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void register(@Valid @RequestBody UserTo userTo) {
+    public User register(@Valid @RequestBody UserTo userTo) {
         checkNew(userTo);
         LOG.info("register " + userTo);
-        service.save(createNewFromTo(userTo));
+        return service.save(createNewFromTo(userTo));
     }
 }

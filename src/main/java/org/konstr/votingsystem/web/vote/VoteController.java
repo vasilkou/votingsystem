@@ -19,8 +19,9 @@ import java.util.List;
  * Date: 23-Feb-17.
  */
 @RestController
-@RequestMapping("/v1/votes")
+@RequestMapping(VoteController.URL)
 public class VoteController {
+    static final String URL = "/v1/votes";
     private static final Logger LOG = LoggerFactory.getLogger(VoteController.class);
 
     @Autowired
