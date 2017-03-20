@@ -1,6 +1,5 @@
 package org.konstr.votingsystem.service;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.konstr.votingsystem.model.Dish;
 import org.konstr.votingsystem.util.exceptions.NotFoundException;
@@ -22,10 +21,6 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Autowired
     private DishService service;
-
-    @Before
-    public void setUp() throws Exception {
-    }
 
     @Test
     public void testGet() throws Exception {

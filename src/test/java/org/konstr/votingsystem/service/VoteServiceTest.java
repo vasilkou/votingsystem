@@ -1,6 +1,5 @@
 package org.konstr.votingsystem.service;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.konstr.votingsystem.RestaurantTestData;
 import org.konstr.votingsystem.TestUtil;
@@ -26,10 +25,6 @@ public class VoteServiceTest extends AbstractServiceTest {
 
     @Autowired
     private VoteService service;
-
-    @Before
-    public void setUp() throws Exception {
-    }
 
     @Test
     public void testGetCurrentResults() throws Exception {

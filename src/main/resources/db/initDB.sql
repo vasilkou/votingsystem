@@ -54,6 +54,4 @@ CREATE TABLE votes
   restaurant_name       VARCHAR(255) NOT NULL,
   date                  DATE DEFAULT now(),
   CONSTRAINT voter_date_idx UNIQUE (voter, date)
---   FOREIGN KEY (voter) REFERENCES users (id),
---   FOREIGN KEY (selected) REFERENCES restaurants (id)
 );
